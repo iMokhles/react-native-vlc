@@ -1,5 +1,5 @@
 {
-  "name": "@nghinv/react-native-vlc",
+  "name": "@imokhles/react-native-vlc",
   "version": "1.0.2",
   "description": "",
   "main": "index.js",
@@ -18,11 +18,11 @@
     "lumi",
     "vlc-player"
   ],
-  "author": "nghinv@lumi.biz",
+  "author": "mokhleshussien@aol.com",
   "types": "react-native-vlc.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lumi-software/react-native-vlc.git"
+    "url": "https://github.com/imokhles/react-native-vlc.git"
   },
   "dependencies": {
     "react-native-slider": "0.11.0",
@@ -30,9 +30,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lumi-software/react-native-vlc/issues"
+    "url": "https://github.com/imokhles/react-native-vlc/issues"
   },
-  "homepage": "https://github.com/lumi-software/react-native-vlc#readme",
+  "homepage": "https://github.com/imokhles/react-native-vlc#readme",
   "devDependencies": {},
   "publishConfig": {
     "access": "public"

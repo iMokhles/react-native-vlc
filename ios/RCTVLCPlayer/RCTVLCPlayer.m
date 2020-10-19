@@ -19,7 +19,7 @@ static NSString *const playbackRate = @"rate";
     /* Required to publish events */
     RCTEventDispatcher *_eventDispatcher;
     VLCMediaPlayer *_player;
-    
+
     NSDictionary * _source;
     BOOL _paused;
     BOOL _started;
@@ -29,19 +29,19 @@ static NSString *const playbackRate = @"rate";
 {
     if ((self = [super init])) {
         _eventDispatcher = eventDispatcher;
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationWillResignActive:)
                                                      name:UIApplicationWillResignActiveNotification
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationWillEnterForeground:)
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
-        
+
     }
-    
+
     return self;
 }
 
@@ -153,6 +153,7 @@ static NSString *const playbackRate = @"rate";
         NSMutableDictionary* mediaOptions = [source objectForKey:@"mediaOptions"];
         NSArray* options = [source objectForKey:@"initOptions"];
         NSString* uri    = [source objectForKey:@"uri"];
+        NSString* userAgent    = [source objectForKey:@"userAgent"];
         NSInteger initType = [RCTConvert NSInteger:[source objectForKey:@"initType"]];
         BOOL autoplay = [RCTConvert BOOL:[source objectForKey:@"autoplay"]];
         BOOL isNetWork   = [RCTConvert BOOL:[source objectForKey:@"isNetwork"]];
@@ -164,10 +165,12 @@ static NSString *const playbackRate = @"rate";
             }else{
                 _player = [[VLCMediaPlayer alloc] init];
             }
+            [_player.libraryInstance setHumanReadableName:[userAgent stringByReplacingOccurrencesOfString:@"/" withString:@" "] withHTTPUserAgent:userAgent];
+
             [_player setDrawable:self];
             _player.delegate = self;
             _player.scaleFactor = 0;
-            
+
             // [mediaDictonary setObject:@"1500" forKey:@"network-caching"];
             VLCMedia *media = nil;
             if(isNetWork){

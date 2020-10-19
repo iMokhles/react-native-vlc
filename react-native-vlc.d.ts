@@ -1,9 +1,11 @@
 /**
  * Created by nghinv on Thu Jun 04 2020
  * Copyright (c) 2020 nghinv@lumi.biz
+ *
+ * Modified by @iMokhles Oct 19 2020
  */
 
-declare module '@nghinv/react-native-vlc' {
+declare module 'imokhles/react-native-vlc' {
   import { PureComponent } from 'react';
   import { ViewStyle } from 'react-native';
 

@@ -1,4 +1,4 @@
-# @nghinv/react-native-vlc
+# @imokhles/react-native-vlc
 
 A `VLCPlayer` component for react-native
 project clone from `react-native-yz-vlcplayer`
@@ -10,13 +10,13 @@ project clone from `react-native-yz-vlcplayer`
 * Use yarn
 
 ```sh
-yarn add @nghinv/react-native-vlc
+yarn add @imokhles/react-native-vlc
 ```
 
 * Use npm
 
 ```sh
-npm install @nghinv/react-native-vlc
+npm install @imokhles/react-native-vlc
 ```
 
 ### Dependencies
@@ -32,7 +32,7 @@ npm install @nghinv/react-native-vlc
 
 * **Pre 0.60**
 
-> Run `react-native link @nghinv/react-native-vlc`
+> Run `react-native link @imokhles/react-native-vlc`
 
 
 ## ios
@@ -69,7 +69,7 @@ In root project select Build Settings --> Build Options --> Debug Information is
 # Example
 
 ```javascript
-  (1) import { VLCPlayer, VlCPlayerView } from '@nghinv/react-native-vlc';
+  (1) import { VLCPlayer, VlCPlayerView } from '@imokhles/react-native-vlc';
 
   (2) 
     <VLCPlayer
