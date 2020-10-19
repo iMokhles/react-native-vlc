@@ -199,3 +199,7 @@ In root project select Build Settings --> Build Options --> Debug Information is
 # Supported formats
 
 Supported formats mp4, m3u8, flv,mov, rtsp, rtmp, etc.
+
+
+## Thanks 
+[lumi-software](https://github.com/lumi-software/react-native-vlc)
