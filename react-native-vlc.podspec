@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "1.0.4"
   s.summary      = "VLC player"
   s.requires_arc = true
-  s.author       = { 'nghinv' => 'mokhleshussien@aol.com' }
+  s.author       = { 'imokhles' => 'mokhleshussien@aol.com' }
   s.license      = 'MIT'
   s.homepage     = 'https://github.com/imokhles/react-native-vlc'
   s.source       = { :git => "https://github.com/imokhles/react-native-vlc.git" }
