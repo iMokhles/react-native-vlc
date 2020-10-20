@@ -114,11 +114,12 @@ static NSString *const playbackRate = @"rate";
             //设置缓存多少毫秒
             // [mediaDictonary setObject:@"1500" forKey:@"network-caching"];
             VLCMedia *media = nil;
-            if(isNetWork){
-                media = [VLCMedia mediaWithURL:_uri];
-            }else{
-                media = [VLCMedia mediaWithPath: uri];
-            }
+            media = [VLCMedia mediaWithURL:_uri];
+//             if(isNetWork){
+//                 media = [VLCMedia mediaWithURL:_uri];
+//             }else{
+//                 media = [VLCMedia mediaWithPath: uri];
+//             }
             media.delegate = self;
             if(mediaOptions){
                 [media addOptions:mediaOptions];
@@ -165,7 +166,9 @@ static NSString *const playbackRate = @"rate";
             }else{
                 _player = [[VLCMediaPlayer alloc] init];
             }
-            [_player.libraryInstance setHumanReadableName:[userAgent stringByReplacingOccurrencesOfString:@"/" withString:@" "] withHTTPUserAgent:userAgent];
+            if (userAgent.length > 0) {
+                [_player.libraryInstance setHumanReadableName:[userAgent stringByReplacingOccurrencesOfString:@"/" withString:@" "] withHTTPUserAgent:userAgent];
+            }
 
             [_player setDrawable:self];
             _player.delegate = self;
@@ -173,11 +176,12 @@ static NSString *const playbackRate = @"rate";
 
             // [mediaDictonary setObject:@"1500" forKey:@"network-caching"];
             VLCMedia *media = nil;
-            if(isNetWork){
-                media = [VLCMedia mediaWithURL:_uri];
-            }else{
-                media = [VLCMedia mediaWithPath: uri];
-            }
+            media = [VLCMedia mediaWithURL:_uri];
+//             if(isNetWork){
+//                 media = [VLCMedia mediaWithURL:_uri];
+//             }else{
+//                 media = [VLCMedia mediaWithPath: uri];
+//             }
             if(media){
                 media.delegate = self;
                 if(mediaOptions){

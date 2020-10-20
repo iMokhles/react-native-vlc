@@ -178,6 +178,14 @@ export default class VLCPlayer extends Component {
 		Object.assign(nativeProps, {
 			style: [styles.base, nativeProps.style],
 			source: source,
+			src: {
+				uri,
+				isNetwork,
+				isAsset,
+				type: source.type || "",
+				mainVer: source.mainVer || 0,
+				patchVer: source.patchVer || 0,
+			},
 			onVideoLoadStart: this._onLoadStart,
 			onVideoProgress: this._onProgress,
 			onVideoStateChange: this._onVideoStateChange,
