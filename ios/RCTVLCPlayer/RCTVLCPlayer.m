@@ -290,6 +290,7 @@ static NSString *const playbackRate = @"rate";
                                               @"videoWidth":[NSNumber numberWithInt:width],
                                               @"videoHeight":[NSNumber numberWithInt:height],
                                               @"willPlay":[NSNumber numberWithBool:willPlay],
+                                              @"seekable": [NSNumber numberWithBool:[_player isSeekable]],
                                               });
                     break;
                 case VLCMediaPlayerStatePaused:
@@ -339,6 +340,7 @@ static NSString *const playbackRate = @"rate";
                                               @"videoWidth":[NSNumber numberWithInt:width],
                                               @"videoHeight":[NSNumber numberWithInt:height],
                                               @"willPlay":[NSNumber numberWithBool:willPlay],
+                                              @"seekable": [NSNumber numberWithBool:[_player isSeekable]],
                                               });
                     break;
                 case VLCMediaPlayerStateESAdded:
@@ -411,7 +413,7 @@ static NSString *const playbackRate = @"rate";
             int remainingTime = [[_player remainingTime] intValue];
             int duration      = [_player.media.length intValue];
 
-            if( currentTime >= 0 && currentTime < duration) {
+            if( currentTime >= 0 && currentTime <= duration) {
                 self.onVideoProgress(@{
                                        @"target": self.reactTag,
                                        @"currentTime": [NSNumber numberWithInt:currentTime],
@@ -428,16 +430,20 @@ static NSString *const playbackRate = @"rate";
     }
 }
 
-- (void)jumpBackward:(int)interval
+- (void)setJumpBackward:(int)interval
 {
-    if(interval>=0 && interval <= [_player.media.length intValue])
+    if(interval>=0 && interval <= [_player.media.length intValue]) {
         [_player jumpBackward:interval];
+        [self updateVideoProgress];
+    }
 }
 
-- (void)jumpForward:(int)interval
+- (void)setJumpForward:(int)interval
 {
-    if(interval>=0 && interval <= [_player.media.length intValue])
+    if(interval>=0 && interval <= [_player.media.length intValue]) {
         [_player jumpForward:interval];
+        [self updateVideoProgress];
+    }
 }
 
 /**
