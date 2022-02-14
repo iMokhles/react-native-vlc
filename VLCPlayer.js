@@ -7,6 +7,9 @@ export default class VLCPlayer extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.seek = this.seek.bind(this);
+		this.seekTime = this.seekTime.bind(this);
+		this.jumpBackward = this.jumpBackward.bind(this);
+		this.jumpForward = this.jumpForward.bind(this);
 		this.resume = this.resume.bind(this);
 		this.play = this.play.bind(this);
 		this.snapshot = this.snapshot.bind(this);
@@ -34,6 +37,18 @@ export default class VLCPlayer extends Component {
 
 	seek(pos) {
 		this.setNativeProps({ seek: pos });
+	}
+
+	seekTime(time) {
+		this.setNativeProps({ seekTime: time });
+	}
+
+	jumpBackward(time) {
+		this.setNativeProps({ jumpBackward: time });
+	}
+
+	jumpForward(time) {
+		this.setNativeProps({ jumpForward: time });
 	}
 
 	autoAspectRatio(isAuto) {
@@ -202,6 +217,7 @@ VLCPlayer.propTypes = {
 	/* Native only */
 	rate: PropTypes.number,
 	seek: PropTypes.number,
+	seekTime: PropTypes.number,
 	resume: PropTypes.bool,
 	position: PropTypes.number,
 	snapshotPath: PropTypes.string,
