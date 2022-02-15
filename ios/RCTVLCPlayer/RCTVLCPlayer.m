@@ -413,16 +413,25 @@ static NSString *const playbackRate = @"rate";
             int remainingTime = [[_player remainingTime] intValue];
             int duration      = [_player.media.length intValue];
 
-            if( currentTime >= 0 && currentTime <= duration) {
-                self.onVideoProgress(@{
-                                       @"target": self.reactTag,
-                                       @"currentTime": [NSNumber numberWithInt:currentTime],
-                                       @"remainingTime": [NSNumber numberWithInt:remainingTime],
-                                       @"duration":[NSNumber numberWithInt:duration],
-                                       @"position":[NSNumber numberWithFloat:_player.position],
-                                       @"isPlaying": [NSNumber numberWithBool: _player.isPlaying],
-                                       });
-            }
+            NSString *currentTimeString   = [[_player time] stringValue];
+            NSString *remainingTimeString = [[_player remainingTime] stringValue];
+            NSString *durationString      = [_player.media.length stringValue];
+            CGFloat sliderValue = (CGFloat)currentTime / (CGFloat)duration;
+
+            self.onVideoProgress(@{ @"target": self.reactTag,
+                                                   @"currentTime": [NSNumber numberWithInt:currentTime],
+                                                   @"remainingTime": [NSNumber numberWithInt:remainingTime],
+                                                   @"duration":[NSNumber numberWithInt:duration],
+
+                                                    @"currentTimeString": currentTimeString,
+                                                    @"remainingTimeString": remainingTimeString,
+                                                    @"durationString": durationString,
+                                                    @"sliderValue": [NSNumber numberWithFloat:sliderValue],
+
+
+                                                   @"position":[NSNumber numberWithFloat:_player.position],
+                                                   @"isPlaying": [NSNumber numberWithBool: _player.isPlaying],
+                                                   });
         }
     }
     @catch(NSException *exception){
@@ -488,9 +497,8 @@ static NSString *const playbackRate = @"rate";
 - (void)setSeek:(float)pos
 {
     if(_player != nil && [_player isSeekable]){
-        if(pos>=0 && pos <= 1){
-            [_player setPosition:pos];
-        }
+        [_player setPosition:pos];
+
     }
 }
 
