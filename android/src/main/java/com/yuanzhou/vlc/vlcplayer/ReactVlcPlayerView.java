@@ -379,6 +379,18 @@ class ReactVlcPlayerView extends TextureView implements
         }
     }
 
+    public void jumpForward(long time) {
+        if(mMediaPlayer != null){
+            mMediaPlayer.setTime(time *1000);
+        }
+    }
+
+    public void jumpBackward(long time) {
+        if(mMediaPlayer != null){
+            mMediaPlayer.setTime(-(time * 1000));
+        }
+    }
+
     public void  setPosition(float position){
         if(mMediaPlayer != null) {
             if(position >= 0 && position <= 1){

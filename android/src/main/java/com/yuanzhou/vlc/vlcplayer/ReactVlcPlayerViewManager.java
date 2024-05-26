@@ -25,6 +25,8 @@ public class ReactVlcPlayerViewManager extends SimpleViewManager<ReactVlcPlayerV
     private static final String PROP_MUTED = "muted";
     private static final String PROP_VOLUME = "volume";
     private static final String PROP_SEEK = "seek";
+    private static final String PROP_JUMP_FORWARD = "jumpForward";
+    private static final String PROP_JUMP_BACKWARD = "jumpBackward";
     private static final String PROP_RESUME = "resume";
     private static final String PROP_RATE = "rate";
     private static final String PROP_POTISION = "position";
@@ -99,6 +101,16 @@ public class ReactVlcPlayerViewManager extends SimpleViewManager<ReactVlcPlayerV
     @ReactProp(name = PROP_SEEK)
     public void setSeek(final ReactVlcPlayerView videoView, final float seek) {
         videoView.seekTo(Math.round(seek * 1000f));
+    }
+
+    @ReactProp(name = PROP_JUMP_FORWARD)
+    public void setJumpForward(final ReactVlcPlayerView videoView, final float seek) {
+        videoView.jumpForward(seek);
+    }
+
+    @ReactProp(name = PROP_JUMP_BACKWARD)
+    public void setJumpBackward(final ReactVlcPlayerView videoView, final float seek) {
+        videoView.jumpBackward(seek);
     }
 
     @ReactProp(name = PROP_AUTO_ASPECT_RATIO, defaultBoolean = false)
