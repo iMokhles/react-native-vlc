@@ -5,18 +5,13 @@
 #import "React/UIView+React.h"
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import <AVKit/AVKit.h>
-
 static NSString *const statusKeyPath = @"status";
 static NSString *const playbackLikelyToKeepUpKeyPath = @"playbackLikelyToKeepUp";
 static NSString *const playbackBufferEmptyKeyPath = @"playbackBufferEmpty";
 static NSString *const readyForDisplayKeyPath = @"readyForDisplay";
 static NSString *const playbackRate = @"rate";
 
-@interface RCTVLCPlayer () <VLCMediaPlayerDelegate,VLCMediaDelegate, AVPictureInPictureControllerDelegate>
-{
-    AVPictureInPictureController *_pipController;
-}
+@interface RCTVLCPlayer () <VLCMediaPlayerDelegate,VLCMediaDelegate>
 @end
 
 @implementation RCTVLCPlayer
@@ -81,19 +76,12 @@ static NSString *const playbackRate = @"rate";
     }
 }
 
-- (void)play {
-    if (_player) {
+- (void)play
+{
+    if(_player){
         [_player play];
         _paused = NO;
         _started = YES;
-
-        // Ensure PiP is supported and initialize the PiP controller
-        if ([AVPictureInPictureController isPictureInPictureSupported] && !_pipController) {
-            AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:(AVPlayer *)_player];
-            _pipController = [[AVPictureInPictureController alloc] initWithPlayerLayer:playerLayer];
-            _pipController.canStartPictureInPictureAutomaticallyFromInline = true;
-            _pipController.delegate = self;
-        }
     }
 }
 
@@ -436,14 +424,10 @@ static NSString *const playbackRate = @"rate";
 
 - (void)_release
 {
-    if (_player) {
+    if(_player){
         [_player stop];
         _player = nil;
         _eventDispatcher = nil;
-    }
-    if (_pipController) {
-        [_pipController stopPictureInPicture];
-        _pipController = nil;
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -460,41 +444,4 @@ static NSString *const playbackRate = @"rate";
     [super removeFromSuperview];
 }
 
-#pragma mark - AVPictureInPictureControllerDelegate
-
-- (void)startPictureInPicture {
-    if (_pipController && !_pipController.isPictureInPictureActive) {
-        [_pipController startPictureInPicture];
-    }
-}
-
-- (void)stopPictureInPicture {
-    if (_pipController && _pipController.isPictureInPictureActive) {
-        [_pipController stopPictureInPicture];
-    }
-}
-
-- (void)pictureInPictureControllerWillStartPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
-    // Notify JavaScript side if needed
-    if (self.onVideoStateChange) {
-        self.onVideoStateChange(@{
-            @"target": self.reactTag,
-            @"isPictureInPictureActive": @YES
-        });
-    }
-}
-
-- (void)pictureInPictureControllerDidStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
-    // Notify JavaScript side if needed
-    if (self.onVideoStateChange) {
-        self.onVideoStateChange(@{
-            @"target": self.reactTag,
-            @"isPictureInPictureActive": @NO
-        });
-    }
-}
-
-- (void)pictureInPictureController:(AVPictureInPictureController *)pictureInPictureController failedToStartPictureInPictureWithError:(NSError *)error {
-    NSLog(@"Failed to start PiP: %@", error.localizedDescription);
-}
 @end
